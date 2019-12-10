@@ -4,19 +4,12 @@ const path = require('path');
 module.exports = function (dir,ext,result){    
     fs.readdir(dir,'utf8',(err,data) => {
         if(err) {return result(err)};
-        
-        var filterArray = [];
-        var filterExt = `.${ext}`;   
-        for(i=0;i<=data.length;i++){
-            if(data[i] != undefined){
-                if(path.extname(data[i]) == filterExt){
-                    filterArray.push(data[i]);
-                    console.log(data[i]);                     
-                }   
-            } else if (data[i] == undefined) {
-                console.log("");
+        dataArr = [];
+        data.filter(fileExt =>{
+            if (path.extname(fileExt) == `.${ext}`){
+                dataArr.push(fileExt);
             }
-        }
-        return result(null,filterArray);
+        });
+        return result(null,dataArr);
     });
 };
